@@ -20,6 +20,7 @@ public class TodoService {
     this.todoRepository = todoRepository;
   }
 
+  // * * 생성 * *
   public TodoResponse createTodo(TodoCreateRequest request) {
     Todo todo = new Todo(request.getTitle());
     Todo savedTodo = todoRepository.save(todo);
@@ -27,6 +28,7 @@ public class TodoService {
     return new TodoResponse(savedTodo);
   }
 
+  // * * 목록 조회 * *
   public List<TodoResponse> getTodos() {
     List<Todo> todos = todoRepository.findAll();
 
@@ -35,6 +37,7 @@ public class TodoService {
             .toList();
   }
 
+  // * * 개별 조회 * *
   public TodoResponse getTodo(Long id) {
     Todo todo = todoRepository.findById(id)
             .orElseThrow(() -> new TodoNotFoundException(id)); // 목록에 없으면 예외
@@ -42,6 +45,7 @@ public class TodoService {
     return new TodoResponse(todo);
   }
 
+  // * * 수정 * *
   public TodoResponse updateTodo(Long id, TodoUpdateRequest request) {
     Todo todo = todoRepository.findById(id)
             .orElseThrow(() -> new TodoNotFoundException(id));
@@ -52,6 +56,7 @@ public class TodoService {
     return new TodoResponse(todo);
   }
 
+  // * * 삭제 * *
   public void deleteTodo(Long id) {
     if(!todoRepository.existsById(id)) {
       throw new TodoNotFoundException(id);
@@ -59,4 +64,3 @@ public class TodoService {
     todoRepository.deleteById(id);
   }
 }
-
