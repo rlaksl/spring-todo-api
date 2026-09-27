@@ -5,6 +5,7 @@ import com.example.todo.dto.TodoResponse;
 import com.example.todo.dto.TodoUpdateRequest;
 import com.example.todo.service.TodoService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class TodoController {
   }
 
   @PostMapping // * * 생성 * *
+  @ResponseStatus(HttpStatus.CREATED)
   public TodoResponse createTodo(@Valid @RequestBody TodoCreateRequest request) {
     return  todoService.createTodo(request);
   }
